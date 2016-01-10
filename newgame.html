@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>crazy fish</title>
+	<style>
+		body{
+			margin:auto;
+			text-align: center;
+		}
+
+		#header{
+			height:100px;
+		    width: 100%;
+		    background-image:url('image/header.png');
+		}
+		#body {
+		    height:60%;
+		    width: 100%;
+		    background-image: url('image/body.png');
+			cursor:url('image/my_fish.gif'),url('image/my_fish.cur'),url('image/my_fish.png'),move;
+		}
+	</style>
+</head>
+<body>
+	<div id='header'>
+		<img src="image\boy.jpg" width='100px' height='100px' align='left'/>
+	</div>
+	<div id='body'>
+		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+		<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+	</div>
+	<script type="text/javascript">
+		var div=document.getElementById('body');
+		var flag=false;
+		var x1;
+		var x2;
+		div.addEventListener('mousemove',function(e){
+			if(flag==false)
+			{
+				x1=e.clientX;
+				flag=true;
+			}
+			else{
+				x2=e.clientX;
+				var dx=x2-x1;
+				if(dx>0)
+					div.style.cursor="url('image/my_fish_right.gif'),url('image/my_fish_right.cur'),url('image/my_fish_right.png'),move";
+				else
+					div.style.cursor="url('image/my_fish.gif'),url('image/my_fish.cur'),url('image/my_fish.png'),move";
+				flag=false;
+			}
+		});
+	</script>
+</body>
+</html>

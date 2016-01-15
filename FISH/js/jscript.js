@@ -705,20 +705,24 @@ function stopPlay()
 		document.getElementsByTagName('body')[0].removeChild(game);
 		document.getElementsByTagName('body')[0].style.cursor = "auto";
 		if(level==2)
-		    document.getElementsByTagName('body')[0].innerHTML +='<div id="game"><header></header><div id="menu" style="margin-bottom:15px"><img src="images/level1.png"/width ="200px" height="200px"><img src="images/level2-1.png"/width ="200px" height="200px"><img src="images/level3-1.png"/width ="200px" height="200px"><br/><br/><button id="continue"  style=" width:331px; height:68px ; margin-top:60px; margin-left:500px;" background-image=url("images/countinue.png")></button></div></div>'
+		    document.getElementsByTagName('body')[0].innerHTML='<audio id="music"><source src="sounds/menumusicnew.wav" type="audio/mpeg"></source></audio><audio id="sound"><source src="sounds/EATGULP.wav" type="audio/mpeg"></source></audio><div id="game"><header></header><div id="menu" style="margin-bottom:15px"><img src="images/level1.png"/width ="200px" height="200px"><img src="images/level2-1.png"/width ="200px" height="200px"><img src="images/level3-1.png"/width ="200px" height="200px"><br/><br/><button id="back"  style=" width:331px; height:68px ; margin-top:60px;" background-image=url("images/exit-3.png")></button><button id="continue"  style=" width:331px; height:68px ; margin-top:60px; margin-left:500px;" background-image=url("images/countinue.png")></button></div></div>'
 		if(level==3)
-			document.getElementsByTagName('body')[0].innerHTML +='<div id="game"><header></header><div id="menu" style="margin-bottom:15px"><img src="images/level1-1.png"/width ="200px" height="200px"><img src="images/level2.png"/width ="200px" height="200px"><img src="images/level3-1.png"/width ="200px" height="200px"><br/><br/><button id="continue"  style=" width:331px; height:68px ; margin-top:60px; margin-left:500px;"  background-image=url("images/countinue.png")></button></div></div>'
+			document.getElementsByTagName('body')[0].innerHTML='<audio id="music"><source src="sounds/menumusicnew.wav" type="audio/mpeg"></source></audio><audio id="sound"><source src="sounds/EATGULP.wav" type="audio/mpeg"></source></audio><div id="game"><header></header><div id="menu" style="margin-bottom:15px"><img src="images/level1-1.png"/width ="200px" height="200px"><img src="images/level2.png"/width ="200px" height="200px"><img src="images/level3-1.png"/width ="200px" height="200px"><br/><br/><button id="back"  style=" width:331px; height:68px ; margin-top:60px;" background-image=url("images/exit-3.png")></button><button id="continue"  style=" width:331px; height:68px ; margin-top:60px; margin-left:500px;"  background-image=url("images/countinue.png")></button></div></div>'
 		else //end game
-			document.getElementsByTagName('body')[0].innerHTML +='<div id="game"><header></header><div id="menu" style="margin-bottom:15px"><img src="images/level1-1.png"/width ="200px" height="200px"><img src="images/level2-1.png"/width ="200px" height="200px"><img src="images/level3.png"/width ="200px" height="200px"><br/><br/><button id="continue"  style=" width:331px; height:68px ; margin-top:60px; margin-left:500px;"  background-image=url("images/countinue.png")></button></div></div>'
+			document.getElementsByTagName('body')[0].innerHTML='<audio id="music"><source src="sounds/menumusicnew.wav" type="audio/mpeg"></source></audio><audio id="sound"><source src="sounds/EATGULP.wav" type="audio/mpeg"></source></audio><div id="game"><header></header><div id="menu" style="margin-bottom:15px"><img src="images/level1-1.png"/width ="200px" height="200px"><img src="images/level2-1.png"/width ="200px" height="200px"><img src="images/level3.png"/width ="200px" height="200px"><br/><br/><button id="back"  style=" width:331px; height:68px ; margin-top:60px;" background-image=url("images/exit-3.png")></button><button id="continue"  style=" width:331px; height:68px ; margin-top:60px; margin-left:500px;"  background-image=url("images/countinue.png")></button></div></div>'
 		var cont = document.getElementById("continue");
-
+		var back = document.getElementById("back");
 	    cont.onclick = function(){
 	   		game=document.getElementById("game");
    		    var menu = document.getElementById("menu"); 
 	  		game.removeChild(menu);
 	  		playNewGame(); 	  			
-		}
+		};
+		back.onclick=function(){
+			window.location.reload();
+		};
 	}
+	
 //////////////////////////////
 window.onload=function(){
 	game =document.getElementById("game");

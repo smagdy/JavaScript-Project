@@ -19,6 +19,7 @@
 var smallFish=[];
 var midFish=[];
 var bigFish=[];
+var Diamon=[];
 var LeftDiamon=false;
 var MiddleDiamon=false;
 var RightDiamon=false;
@@ -227,21 +228,28 @@ function mouseCurser(){ //myFishSize 0--small, 1---mid, 2----big
 		img1.setAttribute("style","position:absolute ;TOP:"+t+"px; LEFT:200px  ; width:50px ; hieght:50px");
 		img1.setAttribute("id","small2");
 		img1.setAttribute("class","smallFish");
-		
-		t=get_random(50,570);
-		var img2=document.createElement("img");
-		img2.setAttribute("src","images/small_left.png" );
-		img2.setAttribute("id","small3" );
-		img2.setAttribute("style","position:absolute ;TOP:"+t+"px; LEFT:1050px ; width:50px ; hieght:50px");
-		img2.setAttribute("class","smallFish");
 
+		
 		game.appendChild(img);
 		game.appendChild(img1);
-		game.appendChild(img2);
+		
+		if(level!=3){
+			t=get_random(50,570);
+			var img2=document.createElement("img");
+			img2.setAttribute("src","images/small_left.png" );
+			img2.setAttribute("id","small3" );
+			img2.setAttribute("style","position:absolute ;TOP:"+t+"px; LEFT:1050px ; width:50px ; hieght:50px");
+			img2.setAttribute("class","smallFish");
+
+			game.appendChild(img2);
+
+			img2.addEventListener('mouseover',smallfish);
+		}
+
 		///-------detect-------//
 		img.addEventListener('mouseover',smallfish);
 		img1.addEventListener('mouseover',smallfish);
-		img2.addEventListener('mouseover',smallfish);
+		
 		function smallfish(){
 			game.removeChild(this);
 			detectSmall (true);
@@ -252,6 +260,7 @@ function mouseCurser(){ //myFishSize 0--small, 1---mid, 2----big
 				sound.play();
 			}
 		}
+
 	}
 
 	function creatMidFish()
@@ -271,21 +280,27 @@ function mouseCurser(){ //myFishSize 0--small, 1---mid, 2----big
 		img1.setAttribute("id","mid2");
 		img1.setAttribute("class","midFish");
 
-		t=get_random(50,570);
-		var img2=document.createElement("img");
-		img2.setAttribute("src","images/mid_left.png" );
-		img2.setAttribute("style","position:absolute ;TOP:"+t+"px; LEFT:1050px  ; width:60px ; hieght:60px");
-		img2.setAttribute("id","mid3");
-		img2.setAttribute("class","midFish");
-
 
 		game.appendChild(img);
 		game.appendChild(img1);
-		game.appendChild(img2);
+		
+		/////////////////////////
+		if(level!=3)
+		{
+			t=get_random(50,570);
+			var img2=document.createElement("img");
+			img2.setAttribute("src","images/mid_left.png" );
+			img2.setAttribute("style","position:absolute ;TOP:"+t+"px; LEFT:1050px  ; width:60px ; hieght:60px");
+			img2.setAttribute("id","mid3");
+			img2.setAttribute("class","midFish");
+
+			game.appendChild(img2);
+			img2.addEventListener('mouseover',midfish);
+		}
 		///-------detect-------//
 		img.addEventListener('mouseover',midfish);
 		img1.addEventListener('mouseover',midfish);
-		img2.addEventListener('mouseover',midfish);
+		
 		function midfish(){
 			if(myFishSize==0){
 				lives--;
@@ -314,19 +329,23 @@ function mouseCurser(){ //myFishSize 0--small, 1---mid, 2----big
 	function creatBigFish()
 	{
 		var img=document.createElement("img");
-		img.setAttribute("src","images/big_right.png" );
+		if(level==3)
+			img.setAttribute("src","images/whale_left_L1.png" );
+		else
+			img.setAttribute("src","images/big_right.png" );
 		img.setAttribute("style","position:absolute ;TOP:300; LEFT:200px ; width:80px ; hieght:80px");
 		img.setAttribute("id","big1");
 		img.setAttribute("class","bigFish");
 
 		var img1=document.createElement("img");
-		img1.setAttribute("src","images/big_left.png" );
+		if(level==3)
+			img1.setAttribute("src","images/whale_left_L1.png" );
+		else
+			img1.setAttribute("src","images/big_left.png" );
 		img1.setAttribute("style","position:absolute ;TOP:500px; LEFT:1050px; width:80px ; hieght:80px");
 		img1.setAttribute("id","big2");
 		img1.setAttribute("class","bigFish");
 
-
-		
 		game.appendChild(img);
 		game.appendChild(img1);
 		img.addEventListener('mouseover',bigfish);
@@ -564,6 +583,21 @@ function mouseCurser(){ //myFishSize 0--small, 1---mid, 2----big
 			}
 		}
 	}
+
+	/////------------level3-----------------///
+	function moveDiamon()
+	{
+		var Diamon=document.getElementsByClassName("Diamon");
+		for (var i = 0; i < Diamon.length; i++) {
+
+			Diamon[i].style.top=parseInt(Diamon[i].style.top)-5+"px";
+			if(parseInt(Diamon[i].style.top)<50 )
+			{
+				Body.removeChild(Diamon[i]);
+				i--;
+			}
+		}
+	}
 	//////-----------random----------------/////
 	function get_random(min,max)
 	{
@@ -582,7 +616,7 @@ function playNewGame()
 	setInterval(function(){creatMidFish();},3000);
 	setInterval(function (){moveBig();},100);
 	setInterval(function(){creatBigFish();},5000);
-	if(level==2){
+	if(level>1){
 		drowDiamond();	
 		setInterval(function(){LeftDiamon=true;openLeft();},10000);
 		setInterval(function(){MiddleDiamon=true;openInMiddle();},8000);
@@ -591,7 +625,9 @@ function playNewGame()
 		setInterval(function(){closemiddle();MiddleDiamon=false;},12000);
 		setInterval(function(){closeRight();RightDiamon=false;},16000);
 	}
-	
+	if(level==3)
+		setInterval(function(){moveDiamon();},300);
+
 	
 }
 function stopPlay()
@@ -611,6 +647,8 @@ function stopPlay()
 		clearInterval(function(){closemiddle();MiddleDiamon=false;},12000);
 		clearInterval(function(){closeRight();RightDiamon=false;},16000);
 	}
+	if(level>2)
+		clearInterval(function(){moveDiamon();},300);
 	
 }
 ///////////////////////////////////////////////////////////////////////
@@ -689,14 +727,16 @@ function stopPlay()
 		stopPlay();
 		game=document.getElementById("game");
 		document.getElementsByTagName('body')[0].removeChild(game);
-		document.getElementsByTagName('body')[0].innerHTML +='<div id="game"><audio id="sound"><source src="sounds/EATGULP.wav" type="audio/mpeg"></source></audio><img src="images/gameover.gif"/></div>';
+		document.getElementsByTagName('body')[0].innerHTML='<div id="game"><audio id="sound"><source src="sounds/EATGULP.wav" type="audio/mpeg"></source></audio><img src="images/gameover.gif" style="width:100%;height:90%;"/><button id="back" style="width:335px; height:10% ;margin-left:50px; background-image:url(images/exit-3.png);"></button></div></div>';
 		if(soundOn){
 			var source = sound.children[0];
 			source.setAttribute('src','sounds/GAMEOVER.wav');
 			sound.play();
 		}
-
-		//window.close();	
+		var back = document.getElementById("back");
+		back.onclick=function(){
+			window.location.reload();
+		};
 	}
 	function map()
 	{
@@ -705,11 +745,11 @@ function stopPlay()
 		document.getElementsByTagName('body')[0].removeChild(game);
 		document.getElementsByTagName('body')[0].style.cursor = "auto";
 		if(level==2)
-		    document.getElementsByTagName('body')[0].innerHTML='<audio id="music"><source src="sounds/menumusicnew.wav" type="audio/mpeg"></source></audio><audio id="sound"><source src="sounds/EATGULP.wav" type="audio/mpeg"></source></audio><div id="game"><header></header><div id="menu" style="margin-bottom:15px"><img src="images/level1.png"/width ="200px" height="200px"><img src="images/level2-1.png"/width ="200px" height="200px"><img src="images/level3-1.png"/width ="200px" height="200px"><br/><br/><button id="back"  style=" width:331px; height:68px ; margin-top:60px;" background-image=url("images/exit-3.png")></button><button id="continue"  style=" width:331px; height:68px ; margin-top:60px; margin-left:500px;" background-image=url("images/countinue.png")></button></div></div>'
+		    document.getElementsByTagName('body')[0].innerHTML='<audio id="music"><source src="sounds/menumusicnew.wav" type="audio/mpeg"></source></audio><audio id="sound"><source src="sounds/EATGULP.wav" type="audio/mpeg"></source></audio><div id="game"><header></header><div id="menu" style="margin-bottom:15px"><img src="images/level1.png"/width ="200px" height="200px"><img src="images/level2-1.png"/width ="200px" height="200px"><img src="images/level3-1.png"/width ="200px" height="200px"><br/><br/><button id="back"  style=" width:331px; height:68px ; margin-top:60px;" style="background-image:url(images/exit-3.png)"></button><button id="continue"  style=" width:331px; height:68px ; margin-top:60px; margin-left:500px;" background-image=url("images/countinue.png")></button></div></div>'
 		if(level==3)
-			document.getElementsByTagName('body')[0].innerHTML='<audio id="music"><source src="sounds/menumusicnew.wav" type="audio/mpeg"></source></audio><audio id="sound"><source src="sounds/EATGULP.wav" type="audio/mpeg"></source></audio><div id="game"><header></header><div id="menu" style="margin-bottom:15px"><img src="images/level1-1.png"/width ="200px" height="200px"><img src="images/level2.png"/width ="200px" height="200px"><img src="images/level3-1.png"/width ="200px" height="200px"><br/><br/><button id="back"  style=" width:331px; height:68px ; margin-top:60px;" background-image=url("images/exit-3.png")></button><button id="continue"  style=" width:331px; height:68px ; margin-top:60px; margin-left:500px;"  background-image=url("images/countinue.png")></button></div></div>'
+			document.getElementsByTagName('body')[0].innerHTML='<audio id="music"><source src="sounds/menumusicnew.wav" type="audio/mpeg"></source></audio><audio id="sound"><source src="sounds/EATGULP.wav" type="audio/mpeg"></source></audio><div id="game"><header></header><div id="menu" style="margin-bottom:15px"><img src="images/level1-1.png"/width ="200px" height="200px"><img src="images/level2.png"/width ="200px" height="200px"><img src="images/level3-1.png"/width ="200px" height="200px"><br/><br/><button id="back"  style=" width:331px; height:68px ; margin-top:60px;" style="background-image:url(images/exit-3.png)"></button><button id="continue"  style=" width:331px; height:68px ; margin-top:60px; margin-left:500px;"  background-image=url("images/countinue.png")></button></div></div>'
 		else //end game
-			document.getElementsByTagName('body')[0].innerHTML='<audio id="music"><source src="sounds/menumusicnew.wav" type="audio/mpeg"></source></audio><audio id="sound"><source src="sounds/EATGULP.wav" type="audio/mpeg"></source></audio><div id="game"><header></header><div id="menu" style="margin-bottom:15px"><img src="images/level1-1.png"/width ="200px" height="200px"><img src="images/level2-1.png"/width ="200px" height="200px"><img src="images/level3.png"/width ="200px" height="200px"><br/><br/><button id="back"  style=" width:331px; height:68px ; margin-top:60px;" background-image=url("images/exit-3.png")></button><button id="continue"  style=" width:331px; height:68px ; margin-top:60px; margin-left:500px;"  background-image=url("images/countinue.png")></button></div></div>'
+			document.getElementsByTagName('body')[0].innerHTML='<audio id="music"><source src="sounds/menumusicnew.wav" type="audio/mpeg"></source></audio><audio id="sound"><source src="sounds/EATGULP.wav" type="audio/mpeg"></source></audio><div id="game"><header></header><div id="menu" style="margin-bottom:15px"><img src="images/level1-1.png"/width ="200px" height="200px"><img src="images/level2-1.png"/width ="200px" height="200px"><img src="images/level3.png"/width ="200px" height="200px"><br/><br/><button id="back"  style=" width:331px; height:68px ; margin-top:60px;" style="background-image:url(images/exit-3.png)"></button><button id="continue"  style=" width:331px; height:68px ; margin-top:60px; margin-left:500px;"  background-image=url("images/countinue.png")></button></div></div>'
 		var cont = document.getElementById("continue");
 		var back = document.getElementById("back");
 	    cont.onclick = function(){
@@ -722,7 +762,7 @@ function stopPlay()
 			window.location.reload();
 		};
 	}
-	
+
 //////////////////////////////
 window.onload=function(){
 	game =document.getElementById("game");

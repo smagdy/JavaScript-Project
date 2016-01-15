@@ -1,6 +1,6 @@
 // JavaScript Document
  var eatSmallCounter = 0 ;
- var eatMidCounter = 0 ;///////////////
+ var eatMidCounter = 0 ;
  var eatDcounter = 0; 
  var score =0, wScore1 = 200, wScore2 =500 ,wScore3 =900, midScore = 100 /*score to be mid*/, bigScore = 650 /*score to be big*/;
  var wTime2 =5; 
@@ -202,22 +202,30 @@ function mouseCurser(){ //myFishSize 0--small, 1---mid, 2----big
 	});
 }
 ////////-------creat fish----------------------//
-function creatSmallFish()
+	function creatSmallFish()
 	{
+		var t=get_random(0,1000);
+
 		var img=document.createElement("img");
 		img.setAttribute("src","images/small_right.png" );
-		img.setAttribute("style","position:absolute ;TOP:0px; LEFT:0px ; width:50px ; hieght:50px");
+		img.setAttribute("style","position:absolute ;TOP:"+t+"px; LEFT:0px ; width:50px ; hieght:50px");
 		img.setAttribute("id","small1");
+		img.setAttribute("class","smallFish");
 
+		t=get_random(0,1000);
 		var img1=document.createElement("img");
 		img1.setAttribute("src","images/small_left.png" );
-		img1.setAttribute("style","position:absolute ;TOP:500px; LEFT:1000px  ; width:50px ; hieght:50px");
+		img1.setAttribute("style","position:absolute ;TOP:"+t+"px; LEFT:1000px  ; width:50px ; hieght:50px");
 		img1.setAttribute("id","small2");
+		img1.setAttribute("class","smallFish");
 
+		t=get_random(0,1000);
 		var img2=document.createElement("img");
 		img2.setAttribute("src","images/small_left.png" );
-		img2.setAttribute("style","position:absolute ;TOP:0px; LEFT:1000px ; width:50px ; hieght:50px");
 		img2.setAttribute("id","small3" );
+		img2.setAttribute("style","position:absolute ;TOP:"+t+"px; LEFT:1000px ; width:50px ; hieght:50px");
+		img2.setAttribute("class","smallFish");
+
 
 		game.appendChild(img);
 		game.appendChild(img1);
@@ -239,22 +247,29 @@ function creatSmallFish()
 	}
 
 	function creatMidFish()
-	{		
+	{
+
+		var t=get_random(0,1000);
 		var img=document.createElement("img");
 		img.setAttribute("src","images/mid_right.png" );
-		img.setAttribute("style","position:absolute ;TOP:200px; LEFT:0px ; width:50px ; hieght:50px");
+		img.setAttribute("style","position:absolute ;TOP:"+t+"px; LEFT:0px ; width:60px ; hieght:60px");
 		img.setAttribute("id","mid1");
+		img.setAttribute("class","midFish");
 
+		t=get_random(0,1000);
 		var img1=document.createElement("img");
 		img1.setAttribute("src","images/mid_left.png" );
-		img1.setAttribute("style","position:absolute ;TOP:1000px; LEFT:50px  ; width:50px ; hieght:50px");
+		img1.setAttribute("style","position:absolute ;TOP:"+t+"px; LEFT:1000px  ; width:60px ; hieght:60px");
 		img1.setAttribute("id","mid2");
+		img1.setAttribute("class","midFish");
 
+		t=get_random(0,1000);
 		var img2=document.createElement("img");
 		img2.setAttribute("src","images/mid_left.png" );
-		img2.setAttribute("id","other" );
-		img2.setAttribute("style","position:absolute ;TOP:0px; LEFT:1000px  ; width:50px ; hieght:50px");
+		img2.setAttribute("style","position:absolute ;TOP:"+t+"px; LEFT:1000px  ; width:60px ; hieght:60px");
 		img2.setAttribute("id","mid3");
+		img2.setAttribute("class","midFish");
+
 
 		game.appendChild(img);
 		game.appendChild(img1);
@@ -266,6 +281,7 @@ function creatSmallFish()
 		function midfish(){
 			if(myFishSize==0){
 				lives--;
+				console.log(lives);
 				updateHeader(7,lives);
 				if(soundOn){
 					var source = sound.children[0];
@@ -273,7 +289,6 @@ function creatSmallFish()
 					sound.load();
 					sound.play();
 			   }
-			  
 			}
 			else{
 				game.removeChild(this);
@@ -286,31 +301,31 @@ function creatSmallFish()
 			    }
 			}
 		}
-
 	}
 
 	function creatBigFish()
 	{
 		var img=document.createElement("img");
-		img.setAttribute("src","images/big_left.png" );
-		img.setAttribute("style","position:absolute ;TOP:200; LEFT:0px");
-		img.setAttribute("class","big");
+		img.setAttribute("src","images/big_right.png" );
+		img.setAttribute("style","position:absolute ;TOP:300; LEFT:0px ; width:80px ; hieght:80px");
+		img.setAttribute("id","big1");
+		img.setAttribute("class","bigFish");
 
-		/*var img1=document.createElement("img");
-		img1.setAttribute("src","images/small_left_L1.gif" );
-		img1.setAttribute("style","position:absolute ;TOP:500px; LEFT:1000px");
+		var img1=document.createElement("img");
+		img1.setAttribute("src","images/big_left.png" );
+		img1.setAttribute("style","position:absolute ;TOP:500px; LEFT:1000px; width:80px ; hieght:80px");
+		img1.setAttribute("id","big2");
+		img1.setAttribute("class","bigFish");
 
-		var img2=document.createElement("img");
-		img2.setAttribute("src","images/small_left_L1.gif" );
-		img2.setAttribute("id","other" );
-		img2.setAttribute("style","position:absolute ;TOP:0px; LEFT:1200px");*/
+
+		
 		game.appendChild(img);
-		//game.appendChild(img1);
-		//game.appendChild(img2);
-
+		game.appendChild(img1);
 		img.addEventListener('mouseover',bigfish);
+		img1.addEventListener('mouseover',bigfish);
 		function bigfish(){
 				lives--;
+				console.log(lives);
 				updateHeader(7,lives);
 				if(soundOn){
 					var source = sound.children[0];
@@ -320,68 +335,91 @@ function creatSmallFish()
 			   }
 		}
 	}
-	function move()
+/////////------move--------------//////
+
+	function moveSmall()
 	{
-		imgs=document.getElementsByTagName("img");
-		for (var i = 0; i < imgs.length; i++) {
+		smallFish=document.getElementsByClassName("smallFish");
+
+		for (var i = 0; i < smallFish.length; i++) {
+
 			var l=get_random(-2,10);
 			var t=get_random(-2,10);
-			if (imgs[i].id="small1") {
-				imgs[i].style.left=parseInt(imgs[i].style.left)+l+"px";
-				imgs[i].style.top=parseInt(imgs[i].style.top)+t+"px";
-				}
-			else if (imgs[i].id=="small2"){
-				imgs[i].style.left=parseInt(imgs[i].style.left)-l+"px";
-				imgs[i].style.top=parseInt(imgs[i].style.top)+t+"px";	
-			}
-			else if(imgs[i].id=="small3"){
-				imgs[i].style.left=parseInt(imgs[i].style.left)-l+"px";
-				imgs[i].style.top=parseInt(imgs[i].style.top)-t+"px";
 
-				/*	if(parseInt(imgs[i].style.left)>600)
-						{
-							game.removeChild(imgs[i]);
-							i--;
-						}*/
+			if (smallFish[i].id=="small1") {
+				smallFish[i].style.left=parseInt(smallFish[i].style.left)+l+"px";
+				smallFish[i].style.top=parseInt(smallFish[i].style.top)+t+"px";
 			}
-			if(parseInt(imgs[i].style.left)>1300){
-				game.removeChild(imgs[i]);
+			else if (smallFish[i].id=="small2"){
+				smallFish[i].style.left=parseInt(smallFish[i].style.left)-l+"px";
+				smallFish[i].style.top=parseInt(smallFish[i].style.top)+t-5+"px";
+			}
+			else if(smallFish[i].id=="small3"){
+				smallFish[i].style.left=parseInt(smallFish[i].style.left)-l+"px";
+				smallFish[i].style.top=parseInt(smallFish[i].style.top)+t-4+"px";
+			}
+
+			if(parseInt(smallFish[i].style.left)>1300||parseInt(smallFish[i].top)>1300)
+			{
+				game.removeChild(smallFish[i]);
 				i--;
 			}
 		}
 	}
+
 	function moveMid()
 	{
-		imgs=document.getElementsByTagName("img");
+		midFish=document.getElementsByClassName("midFish");
 
-		for (var i = 0;imgs.length < imgs.length; i++) {
-			var l=get_random(-2,10);
-			var t=get_random(-2,10);
-			if (imgs[i].id="mid1") {
-				imgs[i].style.left=parseInt(imgs[i].style.left)+l+"px";
-				imgs[i].style.top=parseInt(imgs[i].style.top)+t+"px";
-				
-				/*if(parseInt(imgs[i].style.left)>600){
-					game.removeChild(imgs[i]);
-					i--;
-				}*/
-			}
-			else if(imgs[i].id=="mid3"){
-				imgs[i].style.left=parseInt(imgs[i].style.left)+l+"px";
-				imgs[i].style.top=parseInt(imgs[i].style.top)-t+"px";
+		for (var i = 0;i< midFish.length; i++) {
+			var l=get_random(2,10);
+			var t=get_random(2,10);
 
-				/*if(parseInt(imgs[i].style.left)>600)
-				{
-					game.removeChild(imgs[i]);
-					i--;
-				}*/
+			if (midFish[i].id=="mid1") {
+				midFish[i].style.left=parseInt(midFish[i].style.left)+l+"px";
+				midFish[i].style.top=parseInt(midFish[i].style.top)+t-2+"px";
 			}
-			else if (imgs[i].id=="mid2"){
-				imgs[i].style.left=parseInt(imgs[i].style.left)+l+"px";
-				imgs[i].style.top=parseInt(imgs[i].style.top)-t+"px";
+			else if (midFish[i].id=="mid2"){
+				midFish[i].style.left=parseInt(midFish[i].style.left)-l+"px";
+				midFish[i].style.top=parseInt(midFish[i].style.top)-t+"px";
+			}
+			else if(midFish[i].id=="mid3"){
+				midFish[i].style.left=parseInt(midFish[i].style.left)-l+"px";
+				midFish[i].style.top=parseInt(midFish[i].style.top)+t-5+"px";
+			}
+			if(parseInt(midFish[i].style.left)>1300||parseInt(midFish[i].top)>1300)
+			{
+				game.removeChild(midFish[i]);
+				i--;
 			}
 		}
 	}
+
+	function moveBig()
+	{
+		bigFish=document.getElementsByClassName("bigFish");
+
+		for (var i = 0;i< bigFish.length; i++) {
+			var l=get_random(2,10);
+			var t=get_random(-10,10);
+
+			if(bigFish[i].id=="big1") {
+
+				bigFish[i].style.left=parseInt(bigFish[i].style.left)+l+"px";
+				bigFish[i].style.top=parseInt(bigFish[i].style.top)+t+2+"px";			
+			}
+			else {	
+				bigFish[i].style.left=parseInt(bigFish[i].style.left)-l+"px";
+				bigFish[i].style.top=parseInt(bigFish[i].style.top)+t+"px";
+			}
+			if(parseInt(bigFish[i].style.left)>1300||parseInt(bigFish[i].top)>1300)
+			{
+				game.removeChild(bigFish[i]);
+				i--;
+			}
+		}
+	}
+	//////-----------random----------------/////
 	function get_random(min,max)
 	{
 	    return Math.floor((Math.random())*(max-min)+min);
@@ -393,19 +431,23 @@ function playNewGame()
 	mouseCurser(0);
 	intiatHeader();
    	setInterval(timer,1000);
+   	setInterval(function (){moveSmall();},100);
 	setInterval(function(){creatSmallFish();},3000);
-	setInterval(function (){move();},100);
-	setInterval(function(){creatMidFish();},4000);
 	setInterval(function (){moveMid();},100);
-	creatBigFish();
+	setInterval(function(){creatMidFish();},4000);
+	setInterval(function (){moveBig();},100);
+	setInterval(function(){creatBigFish();},5000);
+	
 }
-//////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
  ///----------update-----------------
   function updateHeader(id,val){
   		if(id==7&&val==0) GameOver();
-		var ele=header.children[id];
-		ele.innerHTML=val ;
+  		else{
+  			var ele=header.children[id];
+		    ele.innerHTML=val ;
+  		}
+		
 	}
 ///----------------------------------
  function detectSmall (smallFish){
@@ -436,8 +478,10 @@ function playNewGame()
 					 myFishSize=1;
 					 mouseCurser();
 				 }else{
-					 //update screen (switch to level 2)zinab with check timer
+					 //update screen (switch to level 2) with check timer
 					 level=2;
+					 map();
+					 playNewGame();
 					}
 		         break ;
 	      case 2 : 
@@ -446,11 +490,14 @@ function playNewGame()
 				 }else if(mint < wTime2 && score > wScore2){
 					  //update screen (switch to level 3) 
 					  level=3;
+					  map();
+					 playNewGame();
 				 }else {
-					  //time up / /replay level 2 if want  
+					  //time up / /replay level 2 if want 
+					  GameOver(); 
 					 }				 
 		         break ;
-	      case 1 :
+	      case 3 :
 				 if(score < wScore3 && score < bigScore){
 					 //update screen 
 				 }else if (score < wScore3 && score >= bigScore) {
@@ -472,8 +519,12 @@ function playNewGame()
 			var source = sound.children[0];
 			source.setAttribute('src','sounds/GAMEOVER.wav');
 			sound.play();
-		}
-		
+		}	
+	}
+	function map()
+	{
+		console.log("map");
+		/////map
 	}
 //////////////////////////////
 window.onload=function(){

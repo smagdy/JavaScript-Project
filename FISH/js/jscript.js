@@ -709,11 +709,15 @@ function stopPlay()
 		         break ;
 	      case 3 :
 				 if(score < wScore3 && score < bigScore){
-					 //update screen 
+					 updateHeader(3,score);
 				 }else if (score < wScore3 && score >= bigScore) {
 					 //update screen
+					 updateHeader(3,score);
+					  myFishSize=2;
+					 mouseCurser();
 					 //change size (to big)
 				 }else{
+				 		win();
 					 //update screen (win)
 					 }
 		         break ;
@@ -738,6 +742,17 @@ function stopPlay()
 			window.location.reload();
 		};
 	}
+	function win()
+	{
+		stopPlay();
+		game=document.getElementById("game");
+		document.getElementsByTagName('body')[0].removeChild(game);
+		document.getElementsByTagName('body')[0].innerHTML='<div id="game"><audio id="sound"><source src="sounds/EATGULP.wav" type="audio/mpeg"></source></audio><img src="images/gameover.gif" style="width:100%;height:90%;"/><img src="images/ballon1.png"/><img src="images/ballon2.png"/><img src="images/ballon3.png"/><button id="back" style="width:335px; height:10% ;margin-left:50px; background-image:url(images/exit-3.png);"></button></div></div>';
+		var back = document.getElementById("back");
+		back.onclick=function(){
+			window.location.reload();
+		};
+	}
 	function map()
 	{
 		stopPlay();
@@ -745,11 +760,11 @@ function stopPlay()
 		document.getElementsByTagName('body')[0].removeChild(game);
 		document.getElementsByTagName('body')[0].style.cursor = "auto";
 		if(level==2)
-		    document.getElementsByTagName('body')[0].innerHTML='<audio id="music"><source src="sounds/menumusicnew.wav" type="audio/mpeg"></source></audio><audio id="sound"><source src="sounds/EATGULP.wav" type="audio/mpeg"></source></audio><div id="game"><header></header><div id="menu" style="margin-bottom:15px"><img src="images/level1.png"/width ="200px" height="200px"><img src="images/level2-1.png"/width ="200px" height="200px"><img src="images/level3-1.png"/width ="200px" height="200px"><br/><br/><button id="back"  style=" width:331px; height:68px ; margin-top:60px;" style="background-image:url(images/exit-3.png)"></button><button id="continue"  style=" width:331px; height:68px ; margin-top:60px; margin-left:500px;" background-image=url("images/countinue.png")></button></div></div>'
-		if(level==3)
-			document.getElementsByTagName('body')[0].innerHTML='<audio id="music"><source src="sounds/menumusicnew.wav" type="audio/mpeg"></source></audio><audio id="sound"><source src="sounds/EATGULP.wav" type="audio/mpeg"></source></audio><div id="game"><header></header><div id="menu" style="margin-bottom:15px"><img src="images/level1-1.png"/width ="200px" height="200px"><img src="images/level2.png"/width ="200px" height="200px"><img src="images/level3-1.png"/width ="200px" height="200px"><br/><br/><button id="back"  style=" width:331px; height:68px ; margin-top:60px;" style="background-image:url(images/exit-3.png)"></button><button id="continue"  style=" width:331px; height:68px ; margin-top:60px; margin-left:500px;"  background-image=url("images/countinue.png")></button></div></div>'
+		    document.getElementsByTagName('body')[0].innerHTML='<audio id="music"><source src="sounds/menumusicnew.wav" type="audio/mpeg"></source></audio><audio id="sound"><source src="sounds/EATGULP.wav" type="audio/mpeg"></source></audio><div id="game"><header></header><div id="menu" style="margin-bottom:15px"><img src="images/level1.png"/width ="200px" height="200px"><img src="images/level2-1.png"/width ="200px" height="200px"><img src="images/level3-1.png"/width ="200px" height="200px"><br/><br/><br/><br/><br/><br/><br/><br/><button id="back"  style=" width:200px; height:55px ; background-image:url(images/quiet.png);"></button><button id="continue"  style=" width:200px; height:55px ; background-image:url(images/countinue.png); margin-left:10px;"></button></div></div>'
+		else if(level==3)
+			document.getElementsByTagName('body')[0].innerHTML='<audio id="music"><source src="sounds/menumusicnew.wav" type="audio/mpeg"></source></audio><audio id="sound"><source src="sounds/EATGULP.wav" type="audio/mpeg"></source></audio><div id="game"><header></header><div id="menu" style="margin-bottom:15px"><img src="images/level1-1.png"/width ="200px" height="200px"><img src="images/level2.png"/width ="200px" height="200px"><img src="images/level3-1.png"/width ="200px" height="200px"><br/><br/><br/><br/><br/><br/><br/><br/><button id="back"  style=" width:200px; height:55px ; background-image:url(images/quiet.png);"></button><button id="continue"  style=" width:200px; height:55px ; background-image:url(images/countinue.png);margin-left:10px;"></button></div></div>'
 		else //end game
-			document.getElementsByTagName('body')[0].innerHTML='<audio id="music"><source src="sounds/menumusicnew.wav" type="audio/mpeg"></source></audio><audio id="sound"><source src="sounds/EATGULP.wav" type="audio/mpeg"></source></audio><div id="game"><header></header><div id="menu" style="margin-bottom:15px"><img src="images/level1-1.png"/width ="200px" height="200px"><img src="images/level2-1.png"/width ="200px" height="200px"><img src="images/level3.png"/width ="200px" height="200px"><br/><br/><button id="back"  style=" width:331px; height:68px ; margin-top:60px;" style="background-image:url(images/exit-3.png)"></button><button id="continue"  style=" width:331px; height:68px ; margin-top:60px; margin-left:500px;"  background-image=url("images/countinue.png")></button></div></div>'
+			document.getElementsByTagName('body')[0].innerHTML='<audio id="music"><source src="sounds/menumusicnew.wav" type="audio/mpeg"></source></audio><audio id="sound"><source src="sounds/EATGULP.wav" type="audio/mpeg"></source></audio><div id="game"><header></header><div id="menu" style="margin-bottom:15px"><img src="images/level1-1.png"/width ="200px" height="200px"><img src="images/level2-1.png"/width ="200px" height="200px"><img src="images/level3.png"/width ="200px" height="200px"><br/><br/><br/><br/><br/><br/><br/><br/><button id="back"  style=" width:200px; height:55px ; background-image:url(images/quiet.png);"></button><button id="continue"  style=" width:200px; height:55px ;  background-image:url(images/countinue.png);margin-left:10px;"></button></div></div>'
 		var cont = document.getElementById("continue");
 		var back = document.getElementById("back");
 	    cont.onclick = function(){
